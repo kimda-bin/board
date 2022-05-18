@@ -4,6 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var session = require("express-session")
+var MysqlStore = require("express-mysql-session")(session)
+var options = {
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password: 'itc801',
+  database: 'board'
+};
+var sessionStore = new MysqlStore(options)
+
+
 const { Sequelize } = require('sequelize');
 global.sequelize = new Sequelize('board', 'root', 'itc801', {
   host: 'localhost',
@@ -19,7 +31,13 @@ var boardRouter = require("./routes/board");
 
 var app = express();
 
-
+app.use(session({
+  key: 'session_key',
+  secret: 'wegsxhrxvcbxnb',
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

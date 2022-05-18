@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 router.post("/write", async function (req, res) {
+    if (req.session.user) {
+        req.body.userId = req.session.user.id
+    }
+
     await Board.create(req.body)
     res.json({
         result: "ok"
@@ -20,9 +24,13 @@ router.post("/list", async function (req, res) {
     var offset = (page - 1) * itemPerPage
 
     var boardList = await Board.findAll({
+        include: {
+            model: User,
+            as: "writeUser"
+        },
         limit: itemPerPage,
         offset: offset,
-        orders: [["writeTime", "DESC"]]
+        order: [["writeTime", "DESC"]]
     })
 
     var count = await Board.count() //Select count(*) from Boards

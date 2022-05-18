@@ -14,7 +14,11 @@
         <tr v-for="board in boardList" :key="board.id">
           <td class="text-center">{{ board.id }}</td>
           <td>{{ board.title }}</td>
-          <td class="text-center">{{ board.writer }}</td>
+          <td class="text-center">
+            <div v-if="board.writeUser">
+              {{ board.writeUser.name }}
+            </div>
+          </td>
           <td class="text-center">{{ board.viewCount }}</td>
           <td class="text-center">{{ board.writeTime | dateFormat }}</td>
         </tr>

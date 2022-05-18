@@ -43,6 +43,7 @@ router.post("/login", async function (req, res) {
     })
     return
   }
+  req.session.user = user
   res.json({
     result: "ok"
   })
