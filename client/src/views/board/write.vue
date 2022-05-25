@@ -1,15 +1,22 @@
 <template>
-  <div class="root">
-    <v-text-field v-model="form.title" label="글제목"></v-text-field>
-    <v-textarea v-model="form.body" label="내용"></v-textarea>
-    <div class="text-center">
-      <v-btn color="primary" @click="submit">글쓰기</v-btn>
+  <div>
+    <mjc-header></mjc-header>
+    <div class="root">
+      <v-text-field v-model="form.title" label="글제목"></v-text-field>
+      <v-textarea v-model="form.body" label="내용"></v-textarea>
+      <div class="text-center">
+        <v-btn color="primary" @click="submit">글쓰기</v-btn>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import MjcHeader from "@/components/MjcHeader";
 export default {
+  components: {
+    MjcHeader,
+  },
   data() {
     return {
       form: {
