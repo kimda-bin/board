@@ -13,7 +13,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="board in boardList" :key="board.id">
+          <tr
+            v-for="board in boardList"
+            :key="board.id"
+            @click="clickBoardItem(board)"
+          >
             <td class="text-center">{{ board.id }}</td>
             <td>{{ board.title }}</td>
             <td class="text-center">
@@ -76,6 +80,10 @@ export default {
     });
   },
   methods: {
+    clickBoardItem(board) {
+      console.log(board);
+      this.$router.push("/board/item/" + board.id);
+    },
     changePage(page) {
       console.log(page);
       this.axios.post("/api/board/list", { page: page }).then((result) => {
