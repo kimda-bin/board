@@ -19,7 +19,8 @@ var sessionStore = new MysqlStore(options)
 const { Sequelize } = require('sequelize');
 global.sequelize = new Sequelize('board', 'root', 'itc801', {
   host: 'localhost',
-  dialect: "mysql"
+  dialect: "mysql",
+  logging: false
 });
 
 require("./model.js")
@@ -43,11 +44,14 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+console.log(path.join(__dirname, "../client/dist"))
+console.log(__filename)
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "../client/dist")));
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
